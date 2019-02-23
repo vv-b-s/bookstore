@@ -1,0 +1,13 @@
+<datasources xmlns="http://www.jboss.org/ironjacamar/schema">
+    <datasource jndi-name="java:jboss/datasources/MyDS" pool-name="MSSQLPool">
+        <driver>bookstore.war_com.microsoft.sqlserver.jdbc.SQLServerDriver_7_2</driver>
+        <connection-url>jdbc:sqlserver://${sqlserver.host}:${sqlserver.port};database=${sqlserver.database}</connection-url>
+        <pool>
+            <max-pool-size>30</max-pool-size>
+        </pool>
+        <security>
+            <user-name>${sqlserver.user}</user-name>
+            <password>${sqlserver.password}</password>
+        </security>
+    </datasource>
+</datasources>

@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-
-    <data-source>
-        <name>java:global/MyDS</name>
-        <class-name>com.microsoft.sqlserver.jdbc.SQLServerDataSource</class-name>
-        <url>jdbc:sqlserver://${sqlserver.host}:${sqlserver.port};database=${sqlserver.database}</url>
-        <user>${sqlserver.user}</user>
-        <password>${sqlserver.password}</password>
-    </data-source>
-
 </web-app>

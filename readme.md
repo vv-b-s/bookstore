@@ -18,21 +18,12 @@ If you want to run it, you need to provide the following properties:
 * JDK 8 - https://adoptopenjdk.net/
 * Apache Maven 3 - https://maven.apache.org/
 
-### Compilation
+### Deployment
 
-To compile the application go to the application's main folder (i.e. `bookstore/`).
-Open a terminal and run:
-
-```shell
-mvn package
-```
-
-### Execution
-
-After the build has finished run:
+To compile and deploy the application run:
 
 ```shell
-java -Dsqlserver.host=yourDBHost -Dsqlserver.port=yourDBPort -Dsqlserver.database=yourDB -Dsqlserver.user=yourDbUser -Dsqlserver.password=yourDBPassword -jar target/ROOT-microbunlde.jar 
+mvn -Dsqlserver.host=yourDBHost -Dsqlserver.port=yourDBPort -Dsqlserver.database=yourDB -Dsqlserver.user=yourDbUser -Dsqlserver.password=yourDBPassword wildfly:run
 ```
 
 To check if server is working visit: `http://localhost:8008/rest/hello`
