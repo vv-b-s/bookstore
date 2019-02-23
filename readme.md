@@ -27,7 +27,7 @@ Open a terminal and run:
 mvn package
 ```
 
-### Ececution
+### Execution
 
 After the build has finished run:
 
@@ -37,3 +37,5 @@ java -Dsqlserver.host=yourDBHost -Dsqlserver.port=yourDBPort -Dsqlserver.databas
 
 To check if server is working visit: `http://localhost:8008/rest/hello`
 
+# SQL Scripts
+After initial execution you can insert initial data to the database, located in `/sql`.
