@@ -4,12 +4,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Categories")
-public class Category {
+public class Category implements EntityModel<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CategoryID", nullable = false)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false, name = "Name")
     private String name;
@@ -22,7 +22,7 @@ public class Category {
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

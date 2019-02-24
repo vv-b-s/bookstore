@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "CartBooks")
-public class CartBook {
+public class CartBook implements EntityModel<Integer> {
 
     @Id
     @Column(name = "CartBookID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "CartID", nullable = false)
@@ -28,6 +28,11 @@ public class CartBook {
 
     public CartBook() {
 
+    }
+
+    @Override
+    public Integer getId() {
+        return id;
     }
 
     public CartBook(Cart cart, Book book, LocalDateTime addedOn, int quantity) {

@@ -5,12 +5,22 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "Books")
-public class Book {
+@NamedQuery(name = Book.FIND_BY_ISBN,
+        query = "SELECT b FROM Book b WHERE b.isbn = :isbn")
+@NamedQuery(name = Book.FIND_BY_CATEGORY,
+        query = "SELECT b FROM Book b WHERE b.category = :category")
+@NamedQuery(name = Book.FIND_BY_CATEGORY_ID,
+        query = "SELECT b FROM Book  b where b.category.id = :categoryId")
+public class Book implements EntityModel<Integer> {
+
+    public static final String FIND_BY_ISBN = "findBookByISBN";
+    public static final String FIND_BY_CATEGORY = "findBooksByCategory";
+    public static final String FIND_BY_CATEGORY_ID = "findBooksByCategoryId";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "BookID")
-    private int id;
+    private Integer id;
 
     @Column(nullable = false, name = "Title", columnDefinition = "nvarchar(500)")
     private String title;
@@ -50,7 +60,7 @@ public class Book {
     }
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

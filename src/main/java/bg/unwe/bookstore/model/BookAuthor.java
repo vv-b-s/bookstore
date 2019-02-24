@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "BookAuthors")
-public class BookAuthor {
+public class BookAuthor implements EntityModel<BookAuthorId> {
 
     @EmbeddedId
     private BookAuthorId id;

@@ -4,12 +4,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Authors")
-public class Author {
+public class Author implements EntityModel<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "AuthorID", nullable = false)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false, name = "FirstName")
     private String firstName;
@@ -39,7 +39,7 @@ public class Author {
         this.photo = photo;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

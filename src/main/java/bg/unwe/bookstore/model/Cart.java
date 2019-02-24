@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Carts")
-public class Cart {
+public class Cart implements EntityModel<Integer> {
 
     @Id
     @Column(name = "CartID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "UserId", nullable = false)
     private String userId;
@@ -45,7 +45,7 @@ public class Cart {
         this.deliveryOption = deliveryOption;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
