@@ -12,11 +12,13 @@ public class CartBook implements EntityModel<Integer> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
+    @MapsId
+    @OneToOne
     @JoinColumn(name = "CartID", nullable = false)
     private Cart cart;
 
-    @ManyToOne
+    @MapsId
+    @OneToOne
     @JoinColumn(name = "BookID", nullable = false)
     private Book book;
 
