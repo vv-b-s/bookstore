@@ -17,11 +17,17 @@ public abstract class AbstractRepository<ID, U extends EntityModel<ID>> {
     private EntityManager em;
 
     public U persist(U entity) {
-        em.persist(entity);
-        return entity;
+        if(entity.isNew()) {
+            em.persist(entity);
+            return entity;
+
+        } else {
+            return em.merge(entity);
+        }
     }
 
     public void remove(U entity) {
+        entity = em.merge(entity);
         em.remove(entity);
     }
 
