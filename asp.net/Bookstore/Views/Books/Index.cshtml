@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "Книжарница на УНСС";
+}
+
+<h2>Книжарница на УНСС</h2>
+
+<div class="row">
+    <div class="col-md-4">   
+    <div class="list-group">
+        @foreach(var c in Model.Categories)
+        {
+            <a class="list-group-item" asp-action="Index" asp-route-categoryId="@c.Id">@c.Name</a>
+        }
+        </div>     
+        </div>     
+    <div class="col-md-8">
+        <table class="table table-hover table-striped">
+            <thead>                 
+            <tr>
+                <th></th>
+                <th>Заглавие</th>
+                <th>Година</th>
+                <th>Цена</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach(var b in Model.Books)
+            {
+                <tr>
+                    <td></td>
+                    <td><a asp-action="Get" asp-route-id="@b.Id">@b.Title</a></td>
+                    <td>@b.Year</td>
+                    <td>@b.Price</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
