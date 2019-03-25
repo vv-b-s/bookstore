@@ -11,18 +11,26 @@ namespace Bookstore.Controllers
 {
     public class BooksController : Controller
     {
-        private const string UrlBooks = Constants.BackendHome + "/Books";
-        private const string UrlCategories = Constants.BackendHome + "/Categories";
+        private readonly string urlBooks;
+        private readonly string urlCategories;
 
+        public BooksController(SystemProperties systemProperties)
+        {
+            urlBooks = systemProperties.BackendApi + "/Books";
+            urlCategories = systemProperties.BackendApi + "/Categories";
+        }
+        
         public IActionResult Index()
         {
+            
+            
             using (var client = new WebClient())
             {
-                var booksJson = client.DownloadString(UrlBooks);
+                var booksJson = client.DownloadString(urlBooks);
                 var books = JsonConvert.DeserializeObject<IEnumerable<Book>>(booksJson);
 
 
-                var categoriesJson = client.DownloadString(UrlCategories);
+                var categoriesJson = client.DownloadString(urlCategories);
                 var categories = JsonConvert.DeserializeObject<IEnumerable<Category>>(categoriesJson);
 
                 var booksVM = new BooksViewModel(categories, books);
