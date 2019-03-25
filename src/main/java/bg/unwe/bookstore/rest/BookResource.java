@@ -1,17 +1,19 @@
 package bg.unwe.bookstore.rest;
 
 import bg.unwe.bookstore.dao.BookRepository;
+import bg.unwe.bookstore.dao.UpdateUtil;
 import bg.unwe.bookstore.model.Book;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.transaction.Transactional;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import java.util.Optional;
+
+import static javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 
 @Path("/Books")
@@ -35,5 +37,35 @@ public class BookResource {
         return bookRepository.findById(id)
                 .map(b -> Response.ok(b).build())
                 .orElseGet(() -> Response.status(NOT_FOUND).build());
+    }
+
+    @POST
+    @Transactional
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addBook(Book book) {
+        return Response.ok(bookRepository.persist(book)).build();
+    }
+
+    @PUT
+    @Transactional
+    @Path("/{id}")
+    public Response editBook(@PathParam("id") int bookId, Book book) {
+        Optional<Book> storedBook = bookRepository.findById(bookId);
+
+        if (storedBook.isPresent()) {
+            Book updated = UpdateUtil.updateWhereNotNull(book, storedBook.get());
+            return updated == null ? Response.status(INTERNAL_SERVER_ERROR).build() : Response.ok(updated).build();
+
+        } else {
+            return Response.status(NOT_FOUND).build();
+        }
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Transactional
+    public Response deleteBook(@PathParam("id") int bookId) {
+        bookRepository.remove(bookId);
+        return Response.noContent().build();
     }
 }

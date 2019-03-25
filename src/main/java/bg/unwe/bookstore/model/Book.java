@@ -26,7 +26,7 @@ public class Book implements EntityModel<Integer> {
     private String title;
 
     @Column(name = "Year")
-    private int year;
+    private Integer year;
 
     @Column(name = "Price")
     private BigDecimal price;
@@ -49,7 +49,7 @@ public class Book implements EntityModel<Integer> {
 
     }
 
-    public Book(String title, int year, BigDecimal price, byte[] cover, String isbn, String description, Category category) {
+    public Book(String title, Integer year, BigDecimal price, byte[] cover, String isbn, String description, Category category) {
         this.title = title;
         this.year = year;
         this.price = price;
@@ -76,7 +76,7 @@ public class Book implements EntityModel<Integer> {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 

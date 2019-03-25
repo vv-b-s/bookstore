@@ -29,4 +29,4 @@ mvn -Dsqlserver.host=yourDBHost -Dsqlserver.port=yourDBPort -Dsqlserver.database
 To check if server is working visit: `http://localhost:8008/rest/hello`
 
 # SQL Scripts
-After initial execution you can insert initial data to the database, located in `/sql`.
+After initial execution you can insert initial data to the database, located in `/sq

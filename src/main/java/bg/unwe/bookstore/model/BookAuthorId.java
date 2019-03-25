@@ -8,25 +8,25 @@ import java.io.Serializable;
 public class BookAuthorId implements Serializable {
 
     @Column(name = "BookID", nullable = false)
-    private int book;
+    private Integer book;
 
     @Column(name = "AuthorID", nullable = false)
-    private int author;
+    private Integer author;
 
     public BookAuthorId() {
 
     }
 
-    public BookAuthorId(int book, int author) {
+    public BookAuthorId(Integer book, Integer author) {
         this.book = book;
         this.author = author;
     }
 
-    public int getBook() {
+    public Integer getBook() {
         return book;
     }
 
-    public int getAuthor() {
+    public Integer getAuthor() {
         return author;
     }
 }

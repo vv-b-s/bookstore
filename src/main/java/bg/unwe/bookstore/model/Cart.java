@@ -22,7 +22,7 @@ public class Cart implements EntityModel<Integer> {
     private LocalDateTime lastModification;
 
     @Column(name = "IsPaid", nullable = false)
-    private boolean isPaid;
+    private Boolean isPaid;
 
     @ManyToOne
     @JoinColumn(name = "PaymentMethodID")
@@ -36,7 +36,7 @@ public class Cart implements EntityModel<Integer> {
 
     }
 
-    public Cart(String userId, LocalDateTime createdOn, LocalDateTime lastModification, boolean isPaid, PaymentMethod paymentMethod, DeliveryOption deliveryOption) {
+    public Cart(String userId, LocalDateTime createdOn, LocalDateTime lastModification, Boolean isPaid, PaymentMethod paymentMethod, DeliveryOption deliveryOption) {
         this.userId = userId;
         this.createdOn = createdOn;
         this.lastModification = lastModification;
@@ -73,11 +73,11 @@ public class Cart implements EntityModel<Integer> {
         this.lastModification = lastModification;
     }
 
-    public boolean isPaid() {
+    public Boolean isPaid() {
         return isPaid;
     }
 
-    public void setPaid(boolean paid) {
+    public void setPaid(Boolean paid) {
         isPaid = paid;
     }
 

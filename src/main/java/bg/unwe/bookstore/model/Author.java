@@ -18,7 +18,7 @@ public class Author implements EntityModel<Integer> {
     private String lastName;
 
     @Column(name = "Born")
-    private int born;
+    private Integer born;
 
     @Column(name = "Country")
     private String country;
@@ -31,7 +31,7 @@ public class Author implements EntityModel<Integer> {
 
     }
 
-    public Author(String firstName, String lastName, int born, String country, byte[] photo) {
+    public Author(String firstName, String lastName, Integer born, String country, byte[] photo) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.born = born;
@@ -59,11 +59,11 @@ public class Author implements EntityModel<Integer> {
         this.lastName = lastName;
     }
 
-    public int getBorn() {
+    public Integer getBorn() {
         return born;
     }
 
-    public void setBorn(int born) {
+    public void setBorn(Integer born) {
         this.born = born;
     }
 

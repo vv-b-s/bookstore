@@ -26,7 +26,7 @@ public class CartBook implements EntityModel<Integer> {
     private LocalDateTime addedOn;
 
     @Column(name = "Quantity", nullable = false)
-    private int quantity;
+    private Integer quantity;
 
     public CartBook() {
 
@@ -37,7 +37,7 @@ public class CartBook implements EntityModel<Integer> {
         return id;
     }
 
-    public CartBook(Cart cart, Book book, LocalDateTime addedOn, int quantity) {
+    public CartBook(Cart cart, Book book, LocalDateTime addedOn, Integer quantity) {
         this.cart = cart;
         this.book = book;
         this.addedOn = addedOn;
@@ -68,11 +68,11 @@ public class CartBook implements EntityModel<Integer> {
         this.addedOn = addedOn;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 }
