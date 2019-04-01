@@ -1,0 +1,27 @@
+@model Bookstore.Models.Book
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="row">
+    <div class="col-lg-8">
+        <h2>@Model.Title</h2>
+        <p>@Model.Description</p>
+        <p>ISBN: @Model.ISBN</p>
+        <p>Year: @Model.Year</p>
+    </div>
+    <div class="col-lg-4">
+        <img src="@Url.Action("Cover", new {id = Model.Id})", alt="@Model.Title" width="100%"/>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3>@Model.Price</h3>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-primary" asp-action="Add" asp-controller="Cart" asp-route-id="@Model.Id">
+                <i class="glyphicon glyphicon-shopping-cart"></i>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,7 @@
 package bg.unwe.bookstore.rest;
 
 import bg.unwe.bookstore.dao.BookRepository;
+import bg.unwe.bookstore.dao.CategoryRepository;
 import bg.unwe.bookstore.dao.UpdateUtil;
 import bg.unwe.bookstore.model.Book;
 
@@ -22,6 +23,9 @@ import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 public class BookResource {
 
     @Inject
+    private CategoryRepository categoryRepository;
+
+    @Inject
     private BookRepository bookRepository;
 
     @GET
@@ -36,6 +40,15 @@ public class BookResource {
     public Response findById(@PathParam("id") int id) {
         return bookRepository.findById(id)
                 .map(b -> Response.ok(b).build())
+                .orElseGet(() -> Response.status(NOT_FOUND).build());
+    }
+
+    @GET
+    @Path("/Category/{categoryId}")
+    public Response getAllByCategory(@PathParam("categoryId") int categoryId) {
+        return categoryRepository
+                .findById(categoryId)
+                .map(c -> Response.ok(bookRepository.findByCategory(c).toArray(new Book[0])).build())
                 .orElseGet(() -> Response.status(NOT_FOUND).build());
     }
 

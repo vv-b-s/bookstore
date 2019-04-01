@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @NamedQuery(name = Book.FIND_BY_CATEGORY,
         query = "SELECT b FROM Book b WHERE b.category = :category")
 @NamedQuery(name = Book.FIND_BY_CATEGORY_ID,
-        query = "SELECT b FROM Book  b where b.category.id = :categoryId")
+        query = "SELECT b FROM Book  b WHERE b.category.id = :categoryId")
 public class Book implements EntityModel<Integer> {
 
     public static final String FIND_BY_ISBN = "findBookByISBN";

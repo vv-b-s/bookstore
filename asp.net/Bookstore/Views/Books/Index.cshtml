@@ -29,6 +29,12 @@
             {
                 <tr>
                     <td></td>
+                    <td>
+                        
+                        <a asp-action="Get" asp-route-id="@b.Id">
+                            <img src="@Url.Action("Cover", new {id = b.Id})" alt="" height="50"/>
+                        </a>
+                    </td>
                     <td><a asp-action="Get" asp-route-id="@b.Id">@b.Title</a></td>
                     <td>@b.Year</td>
                     <td>@b.Price</td>

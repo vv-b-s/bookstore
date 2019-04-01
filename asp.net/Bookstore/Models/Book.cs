@@ -12,15 +12,15 @@ namespace Bookstore.Models
 
         }
 
-        public Book(string title, int year, decimal price, sbyte[] cover, string isbn, Category category)
+        public Book(string title, int year, decimal price, sbyte[] cover, string isbn, string description, Category category)
         {
             Title = title;
             Year = year;
             Price = price;
             Cover = cover;
             ISBN = isbn;
+            Description = description;
             Category = category;
-
         }
        
 
@@ -30,6 +30,7 @@ namespace Bookstore.Models
         public decimal Price { get; set; }
         public sbyte[] Cover { get; set; }
         public string ISBN { get; set; }
+        public string Description { get; set; }
         public Category Category { get; set; }
     }
 }

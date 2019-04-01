@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Bookstore.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -20,13 +21,13 @@ namespace Bookstore.Controllers
             urlCategories = systemProperties.BackendApi + "/Categories";
         }
         
-        public IActionResult Index()
+        public IActionResult Index(int? categoryId)
         {
-            
+            var endpoint = categoryId == null ? urlBooks : urlBooks + $"/Category/{categoryId.Value}";
             
             using (var client = new WebClient())
             {
-                var booksJson = client.DownloadString(urlBooks);
+                var booksJson = client.DownloadString(endpoint);
                 var books = JsonConvert.DeserializeObject<IEnumerable<Book>>(booksJson);
 
 
@@ -38,5 +39,36 @@ namespace Bookstore.Controllers
                 return View(booksVM);
             }
         }
+
+        public async Task<IActionResult> Get(int id)
+        {
+            return View(await GetBook(id));
+        }
+
+        public async Task<IActionResult> Cover(int id)
+        {
+            var book = await GetBook(id);
+            var cover = new byte[book.Cover.Length];
+            
+            for (int i = 0; i < cover.Length; i++)
+            {
+                cover[i] = (byte) book.Cover[i];
+            }
+            
+            return File(cover, "image/jpeg");
+        }
+
+        private async Task<Book> GetBook(int bookId)
+        {
+            var endpoint = urlBooks + $"/{bookId}";
+            using (var client = new HttpClient())
+            {
+                var bookJson = await client.GetStringAsync(endpoint);
+                var book = JsonConvert.DeserializeObject<Book>(bookJson);
+
+                return book;
+            }
+        }
+        
     }
 }
