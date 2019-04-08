@@ -10,6 +10,29 @@
         <p>@Model.Description</p>
         <p>ISBN: @Model.ISBN</p>
         <p>Year: @Model.Year</p>
+
+        <h4>Simiar books from Google Books:</h4>
+        <table class="table table-condensed table-striped">
+            <thead>
+                <th>Title</th>
+                <th>ISBN</th>
+                <th>Pulisher</th>
+            </thead>
+            <tbody>
+                @foreach(var googleBook in ViewBag.SimilarBooks)
+                {
+                    <tr>
+                        <td>
+                            <a href="@googleBook.Link">
+                                @googleBook.Title
+                            </a>
+                        </td>
+                        <td>@googleBook.ISBN</td>
+                        <td>@googleBook.Publisher</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
     <div class="col-lg-4">
         <img src="@Url.Action("Cover", new {id = Model.Id})", alt="@Model.Title" width="100%"/>

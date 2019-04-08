@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Bookstore.Models;
+using DefaultNamespace;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -20,11 +21,11 @@ namespace Bookstore.Controllers
             urlBooks = systemProperties.BackendApi + "/Books";
             urlCategories = systemProperties.BackendApi + "/Categories";
         }
-        
+
         public IActionResult Index(int? categoryId)
         {
             var endpoint = categoryId == null ? urlBooks : urlBooks + $"/Category/{categoryId.Value}";
-            
+
             using (var client = new WebClient())
             {
                 var booksJson = client.DownloadString(endpoint);
@@ -42,19 +43,24 @@ namespace Bookstore.Controllers
 
         public async Task<IActionResult> Get(int id)
         {
-            return View(await GetBook(id));
+
+            Book book = await GetBook(id);
+            ViewBag.SimilarBooks = await GetSimilarBooks(book.Title);
+
+
+            return View(book);
         }
 
         public async Task<IActionResult> Cover(int id)
         {
             var book = await GetBook(id);
             var cover = new byte[book.Cover.Length];
-            
+
             for (int i = 0; i < cover.Length; i++)
             {
-                cover[i] = (byte) book.Cover[i];
+                cover[i] = (byte)book.Cover[i];
             }
-            
+
             return File(cover, "image/jpeg");
         }
 
@@ -69,6 +75,20 @@ namespace Bookstore.Controllers
                 return book;
             }
         }
-        
+
+        private async Task<IEnumerable<GoogleBook>> GetSimilarBooks(string title)
+        {
+            var endpoint = $"{urlBooks}/Like?bookName={title}";
+
+            using (var client = new HttpClient())
+            {
+                var booksJson = await client.GetStringAsync(endpoint);
+                var books = JsonConvert.DeserializeObject<IEnumerable<GoogleBook>>(booksJson);
+
+                return books;
+            }
+        }
+
+
     }
 }
