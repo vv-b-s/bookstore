@@ -63,7 +63,7 @@ public class GoogleBooksResource {
 
             JsonArray isbnArray = volumeInfo.getJsonArray("industryIdentifiers");
 
-            String isbn = isbnArray.size() > 0 ? isbnArray.stream()
+            String isbn = isbnArray!= null && isbnArray.size() > 0 ? isbnArray.stream()
                     .findFirst()
                     .map(item -> item.asJsonObject()
                     .getString("identifier", ""))
