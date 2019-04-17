@@ -36,10 +36,8 @@ public class Cart implements EntityModel<Integer> {
 
     }
 
-    public Cart(String userId, LocalDateTime createdOn, LocalDateTime lastModification, Boolean isPaid, PaymentMethod paymentMethod, DeliveryOption deliveryOption) {
+    public Cart(String userId, Boolean isPaid, PaymentMethod paymentMethod, DeliveryOption deliveryOption) {
         this.userId = userId;
-        this.createdOn = createdOn;
-        this.lastModification = lastModification;
         this.isPaid = isPaid;
         this.paymentMethod = paymentMethod;
         this.deliveryOption = deliveryOption;
