@@ -5,7 +5,12 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "CartBooks")
+@NamedQuery(name = CartBook.FIND_ALL_BY_CART, query = "SELECT cb FROM CartBook cb WHERE cb.cart = :cart")
+@NamedQuery(name = CartBook.REMOVE_BY_CART_AND_BOOK_ID, query = "DELETE FROM CartBook cb WHERE cb.cart.id = :cartId AND cb.book.id = :bookId")
 public class CartBook implements EntityModel<Integer> {
+
+    public static final String FIND_ALL_BY_CART = "findAllCartbooksByCart";
+    public static final String REMOVE_BY_CART_AND_BOOK_ID = "removeCartBookByCartAndBookId";
 
     @Id
     @Column(name = "CartBookID", nullable = false)

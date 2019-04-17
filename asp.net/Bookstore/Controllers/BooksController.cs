@@ -22,18 +22,14 @@ namespace Bookstore.Controllers
             urlCategories = systemProperties.BackendApi + "/Categories";
         }
 
-        public IActionResult Index(int? categoryId)
+        public async Task<IActionResult> Index(int? categoryId)
         {
             var endpoint = categoryId == null ? urlBooks : urlBooks + $"/Category/{categoryId.Value}";
 
-            using (var client = new WebClient())
+            using (var client = new HttpClient())
             {
-                var booksJson = client.DownloadString(endpoint);
-                var books = JsonConvert.DeserializeObject<IEnumerable<Book>>(booksJson);
-
-
-                var categoriesJson = client.DownloadString(urlCategories);
-                var categories = JsonConvert.DeserializeObject<IEnumerable<Category>>(categoriesJson);
+                var books = await REST.SendGet<IEnumerable<Book>>(urlBooks, client);
+                var categories = await REST.SendGet<IEnumerable<Category>>(urlCategories, client);
 
                 var booksVM = new BooksViewModel(categories, books);
 
@@ -67,26 +63,14 @@ namespace Bookstore.Controllers
         private async Task<Book> GetBook(int bookId)
         {
             var endpoint = urlBooks + $"/{bookId}";
-            using (var client = new HttpClient())
-            {
-                var bookJson = await client.GetStringAsync(endpoint);
-                var book = JsonConvert.DeserializeObject<Book>(bookJson);
-
-                return book;
-            }
+            return await REST.SendGet<Book>(endpoint);
         }
 
         private async Task<IEnumerable<GoogleBook>> GetSimilarBooks(string title)
         {
             var endpoint = $"{urlBooks}/Like?bookName={title}";
 
-            using (var client = new HttpClient())
-            {
-                var booksJson = await client.GetStringAsync(endpoint);
-                var books = JsonConvert.DeserializeObject<IEnumerable<GoogleBook>>(booksJson);
-
-                return books;
-            }
+            return await REST.SendGet<IEnumerable<GoogleBook>>(endpoint);
         }
 
 
