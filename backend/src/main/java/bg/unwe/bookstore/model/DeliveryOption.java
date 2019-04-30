@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class DeliveryOption implements EntityModel<Integer> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "delivery_options_sequence")
     @Column(nullable = false, name = "DeliveryOptionID")
     private Integer id;
 

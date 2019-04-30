@@ -2,7 +2,6 @@ package bg.unwe.bookstore.dao;
 
 import bg.unwe.bookstore.model.EntityModel;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
@@ -13,45 +12,40 @@ public abstract class AbstractRepository<ID, U extends EntityModel<ID>> {
     private static final String FIND_ALL_QUERY = "SELECT e FROM %s e";
     private static final String REMOVE_BY_ID = "DELETE FROM %s e WHERE e.id = :id";
 
-    @Inject
-    private EntityManager em;
-
     public U persist(U entity) {
         if(entity.isNew()) {
-            em.persist(entity);
+            getEm().persist(entity);
             return entity;
 
         } else {
-            return em.merge(entity);
+            return getEm().merge(entity);
         }
     }
 
     public void remove(U entity) {
-        entity = em.merge(entity);
-        em.remove(entity);
+        entity = getEm().merge(entity);
+        getEm().remove(entity);
     }
 
     public void remove(ID entityId) {
-        Query query = em.createQuery(String.format(REMOVE_BY_ID, getClass().getSimpleName()));
+        Query query = getEm().createQuery(String.format(REMOVE_BY_ID, getClass().getSimpleName()));
         query.setParameter("id", entityId);
         query.executeUpdate();
     }
 
     public Optional<U> findById(ID id) {
-        return Optional.ofNullable(em.find(getEntityClass(), id));
+        return Optional.ofNullable(getEm().find(getEntityClass(), id));
     }
 
     public List<U> findAll() {
-        Query q = em.createQuery(String.format(FIND_ALL_QUERY, getEntityClass().getSimpleName()));
+        Query q = getEm().createQuery(String.format(FIND_ALL_QUERY, getEntityClass().getSimpleName()));
 
         return q.getResultList();
     }
 
     protected abstract Class<U> getEntityClass();
 
-    protected EntityManager getEm() {
-        return em;
-    }
+    protected abstract EntityManager getEm();
 
     /**
      * @param params Provide an even number of parameters.
@@ -63,7 +57,7 @@ public abstract class AbstractRepository<ID, U extends EntityModel<ID>> {
             throw new IllegalStateException("Uneven number of parameters");
         }
 
-        Query query = em.createNamedQuery(queryName);
+        Query query = getEm().createNamedQuery(queryName);
 
         for (int i = 0; i < params.length; i += 2) {
             String paramName = (String) params[i];

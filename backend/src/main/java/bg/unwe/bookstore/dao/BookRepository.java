@@ -4,12 +4,17 @@ import bg.unwe.bookstore.model.Book;
 import bg.unwe.bookstore.model.Category;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
 public class BookRepository extends AbstractRepository<Integer, Book> {
+
+    @Inject
+    private EntityManager em;
 
     public Optional<Book> findByISBN(String isbn) {
         Query query = createNamedQuery(Book.FIND_BY_ISBN, "isbn", isbn);
@@ -29,5 +34,10 @@ public class BookRepository extends AbstractRepository<Integer, Book> {
     @Override
     protected Class<Book> getEntityClass() {
         return Book.class;
+    }
+
+    @Override
+    protected EntityManager getEm() {
+        return em;
     }
 }

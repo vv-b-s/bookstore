@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class PaymentMethod implements EntityModel<Integer> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "payment_method_sequence")
     @Column(nullable = false, name = "PaymentMethodID")
     private Integer id;
 
