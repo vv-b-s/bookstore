@@ -1,0 +1,14 @@
+﻿@model Bookstore.Models.EpayRequest
+@{
+    ViewData["Title"] = "Payment";
+}
+
+<h2>Payment</h2>
+
+<form method="post" action="https://demo.epay.bg">
+    <input type="hidden" name="PAGE" value="credit_paydirect"/>
+    <input type="hidden" asp-for="Encoded"/>
+    <input type="hidden" asp-for="Checksum"/>
+
+    <button type="submit" class="btn btn-primary">Pay with ePay.bg</button>
+</form>

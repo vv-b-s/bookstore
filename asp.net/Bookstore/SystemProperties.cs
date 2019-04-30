@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,13 +8,15 @@ namespace Bookstore
 {
     public class SystemProperties
     {
-        private string BackendAPI;
+        private IConfiguration configuration;
 
-        public SystemProperties(string backendApi)
+        public SystemProperties(IConfiguration configuration)
         {
-            this.BackendAPI = backendApi;
+            this.configuration = configuration;
         }
 
-        public string BackendApi => BackendAPI;
+        public string BackendApi => configuration["BackendAPI"];
+
+        public string GetProperty(string propertyName) => configuration[propertyName];
     }
 }

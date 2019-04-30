@@ -33,7 +33,7 @@ namespace Bookstore
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddSingleton(sp => new SystemProperties(Configuration["BackendAPI"]));
+            services.AddSingleton(sp => new SystemProperties(Configuration));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
